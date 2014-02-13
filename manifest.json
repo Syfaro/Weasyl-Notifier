@@ -3,6 +3,7 @@
 	"name": "Weasyl Submissions Notifier",
 	"description": "Notifies you upon recieving a notification on Weasyl",
 	"version": "1.0",
+	"author": "Syfaro",
 	"permissions": [
 		"https://www.weasyl.com/",
 		"storage",
@@ -10,11 +11,16 @@
 		"notifications"
 	],
 	"browser_action": {
-		"default_icon": "weasyl.png",
+		"default_icon": "icon_48.png",
 		"default_popup": "popup.html"
 	},
 	"background": {
 		"persistent": false,
 		"scripts": ["background.js"]
+	},
+	"icons": {
+		"16": "icon_16.png",
+		"48": "icon_48.png",
+		"128": "icon_128.png"
 	}
 }
