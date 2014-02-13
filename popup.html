@@ -2,8 +2,49 @@
 <html lang="en">
 <head>
 	<title>Weasyl Submissions</title>
+	<style>
+	html {
+		color: rgb(187, 187, 187);
+		background-color: rgb(36, 45, 49);
+		background-image: url(https://www.weasyl.com/static/images/texture-canvas.png);
+		width: 300px;
+	}
+
+	h3 {
+		text-align: center;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	.container {
+		padding-top: 10px;
+	}
+
+	.update {
+		color: rgb(6, 155, 192);
+	}
+
+	.update:hover {
+		cursor: pointer;
+	}
+	</style>
 </head>
 <body>
+	<h3>Weasyl Notifications</h3>
+	<div class="container">
+		<div class="hidden"><span class="journals">0</span> unread journals</div>
+		<div class="hidden"><span class="notifications">0</span> unread notifications</div>
+		<div class="hidden"><span class="unread_notes">0</span> unread notes</div>
+		<div class="hidden"><span class="submissions">0</span> unread submissions</div>
+		<div class="hidden"><span class="comments">0</span> unread comments</div>
+	</div>
+
+	<div class="container">
+		<div class="update">Refresh now</div>
+	</div>
+
 	<script src="popup.js"></script>
 </body>
 </html>

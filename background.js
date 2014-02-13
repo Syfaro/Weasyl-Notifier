@@ -155,10 +155,15 @@ var Display = {
 	}
 };
 
-var runUpdate = function() {
+var runUpdate = function(callback) {
 	MakeRequest.getResource('/messages/summary', function(err, notifications) {
 		Storage.getItem('notifications', function(oldNotifications) {
 			Storage.setItem('notifications', notifications);
+
+			n = notifications;
+
+			if(typeof(callback) == 'function')
+				callback();
 
 			var total = Notifications.total(notifications);
 			Display.updateUnreadCounter(total);
@@ -173,6 +178,8 @@ var runUpdate = function() {
 		});
 	});
 };
+
+var n;
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
 	console.log('Updating notifications');
