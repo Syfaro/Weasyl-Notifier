@@ -1,28 +1,33 @@
-var Weasyl = chrome.extension.getBackgroundPage();
+var updatePopup = function(callback) {
+	var Weasyl = chrome.extension.getBackgroundPage();
 
-var updatePopup = function() {
-	var notifications = Weasyl.n;
+	Weasyl.runUpdate(function() {
+		Weasyl.Storage.getItem('notifications', function(notifications) {
+			for(var key in notifications) {
+				var element = document.querySelector('.' + key)
+				  , value = notifications[key];
 
-	for(var key in notifications) {
-		var element = document.querySelector('.' + key)
-		  , value = notifications[key];
+				console.log(element);
 
-		console.log(element);
+				if (value == 0)
+					continue;
 
-		if (value == 0)
-			continue;
+				element.parentNode.classList.remove('hidden');
+				element.innerText = value;
+			}
 
-		element.parentNode.classList.remove('hidden');
-		element.innerText = value;
-	}
+			if(typeof(callback) == 'function') {
+				callback();
+			}
+		});
+	});
 };
 
 var updateButton = document.querySelector('.update');
 
 updateButton.addEventListener('click', function() {
 	updateButton.innerText = 'Loading...';
-	Weasyl.runUpdate(function() {
-		updatePopup();
+	updatePopup(function() {
 		updateButton.innerText = 'Refresh now';
 	});
 });

@@ -160,10 +160,8 @@ var runUpdate = function(callback) {
 		Storage.getItem('notifications', function(oldNotifications) {
 			Storage.setItem('notifications', notifications);
 
-			n = notifications;
-
 			if(typeof(callback) == 'function')
-				callback();
+				callback(notifications);
 
 			var total = Notifications.total(notifications);
 			Display.updateUnreadCounter(total);
@@ -178,8 +176,6 @@ var runUpdate = function(callback) {
 		});
 	});
 };
-
-var n;
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
 	console.log('Updating notifications');
