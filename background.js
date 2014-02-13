@@ -65,9 +65,9 @@ var MakeRequest = {
 
 var Storage = {
 	getItem: function(key, callback) {
-		chrome.storage.sync.get(key, function(value) {
+		chrome.storage.local.get(key, function(value) {
 			if (value[key] === undefined)
-				return undefined;
+				return callback(undefined);
 
 			var json;
 
@@ -83,7 +83,7 @@ var Storage = {
 		var set = {};
 		set[key] = JSON.stringify(value);
 
-		chrome.storage.sync.set(set, function(){});
+		chrome.storage.local.set(set, function(){});
 	}
 };
 

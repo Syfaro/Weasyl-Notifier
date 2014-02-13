@@ -7,8 +7,6 @@ var updatePopup = function(callback) {
 				var element = document.querySelector('.' + key)
 				  , value = notifications[key];
 
-				console.log(element);
-
 				if (value == 0)
 					continue;
 
