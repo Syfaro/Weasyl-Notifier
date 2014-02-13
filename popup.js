@@ -12,17 +12,11 @@ var initialLoad = function(callback) {
 			if (value == 0)
 				continue;
 
-			console.log(element.parentNode);
-
 			element.parentNode.parentNode.classList.remove('hidden');
 			element.innerText = value;
 		}
 
 		updateButton.innerText = 'Refresh now';
-
-		if(typeof(callback) == 'function') {
-			callback();
-		}
 	});
 };
 
@@ -56,4 +50,5 @@ updateButton.addEventListener('click', function() {
 	});
 });
 
-initialLoad(updatePopup);
+initialLoad();
+updatePopup();
