@@ -1,24 +1,24 @@
 var updatePopup = function(callback) {
-	var Weasyl = chrome.extension.getBackgroundPage();
+	chrome.runtime.getBackgroundPage(function(Weasyl) {
+		Weasyl.runUpdate(function() {
+			Weasyl.Storage.getItem('notifications', function(notifications) {
+				for(var key in notifications) {
+					var element = document.querySelector('.' + key)
+					  , value = notifications[key];
 
-	Weasyl.runUpdate(function() {
-		Weasyl.Storage.getItem('notifications', function(notifications) {
-			for(var key in notifications) {
-				var element = document.querySelector('.' + key)
-				  , value = notifications[key];
+					console.log(element);
 
-				console.log(element);
+					if (value == 0)
+						continue;
 
-				if (value == 0)
-					continue;
+					element.parentNode.classList.remove('hidden');
+					element.innerText = value;
+				}
 
-				element.parentNode.classList.remove('hidden');
-				element.innerText = value;
-			}
-
-			if(typeof(callback) == 'function') {
-				callback();
-			}
+				if(typeof(callback) == 'function') {
+					callback();
+				}
+			});
 		});
 	});
 };
