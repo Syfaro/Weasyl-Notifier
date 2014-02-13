@@ -122,7 +122,9 @@ var Notifications = {
 var Display = {
 	updateUnreadCounter: function(total) {
 		if (total == 0)
-			return;
+			return chrome.browserAction.setBadgeText({
+				text: ''
+			});
 
 		chrome.browserAction.setBadgeText({
 			text: '' + total
