@@ -169,7 +169,7 @@ var runUpdate = function(callback) {
 			var difference = Notifications.difference(oldNotifications, notifications);
 			var totalNewNotifications = Notifications.total(difference);
 
-			if (totalNewNotifications == 0)
+			if (totalNewNotifications < total)
 				return;
 
 			Display.displayNotification(notifications);
