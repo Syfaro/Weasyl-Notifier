@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Weasyl Submissions Notifier",
 	"description": "Notifies you upon recieving a notification on Weasyl",
-	"version": "1.0",
+	"version": "1.0.2",
 	"author": "Syfaro",
 	"permissions": [
 		"https://www.weasyl.com/",
