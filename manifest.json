@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "Weasyl Submissions Notifier",
+	"description": "Notifies you upon recieving a notification on Weasyl",
+	"version": "1.0",
+	"permissions": [
+		"https://www.weasyl.com/",
+		"storage",
+		"alarms",
+		"notifications"
+	],
+	"browser_action": {
+		"default_icon": "weasyl.png",
+		"default_popup": "popup.html"
+	},
+	"background": {
+		"scripts": ["background.js"]
+	}
+}
