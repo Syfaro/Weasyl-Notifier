@@ -66,8 +66,8 @@ var MakeRequest = {
 var Storage = {
 	getItem: function(key, callback) {
 		chrome.storage.local.get(key, function(value) {
-			if (value[key] === undefined)
-				return callback(undefined);
+			if (value === undefined || value[key] === undefined)
+				return callback({});
 
 			var json;
 
@@ -75,7 +75,7 @@ var Storage = {
 				json = JSON.parse(value[key]);
 				callback(json);
 			} catch (e) {
-				callback(undefined);
+				callback({});
 			}
 		});
 	},
@@ -111,8 +111,8 @@ var Notifications = {
 	difference: function(set1, set2) {
 		var changes = {};
 
-		for(var key in set1) {
-			changes[key] = set2[key] - set1[key];
+		for(var key in set2) {
+			changes[key] = set2[key] - ((set1[key]) ? set1[key] : 0);
 		}
 
 		return changes;
@@ -137,7 +137,7 @@ var Display = {
 			var changes = newNotifications[key];
 
 			if (changes == 0)
-				return;
+				continue;
 
 			items.push({
 				title: Notifications.convertName(key),
@@ -153,28 +153,34 @@ var Display = {
 			items: items
 		};
 
-		chrome.notifications.create('', notifications, function(){});
+		chrome.notifications.create('', notification, function(){});
 	}
 };
+
+var n;
 
 var runUpdate = function(callback) {
 	MakeRequest.getResource('/messages/summary', function(err, notifications) {
 		Storage.getItem('notifications', function(oldNotifications) {
 			Storage.setItem('notifications', notifications);
 
+			n = notifications;
+
 			if(typeof(callback) == 'function')
 				callback(notifications);
 
-			var total = Notifications.total(notifications);
-			Display.updateUnreadCounter(total);
+			var currentTotal = Notifications.total(notifications);
+			Display.updateUnreadCounter(currentTotal);
 
-			var difference = Notifications.difference(oldNotifications, notifications);
-			var totalNewNotifications = Notifications.total(difference);
+			var newNotifications = Notifications.difference(oldNotifications, notifications);
+			var totalNewNotifications = Notifications.total(newNotifications);
 
 			if (totalNewNotifications <= 0)
 				return;
 
-			Display.displayNotification(notifications);
+			console.log('New submissions');
+
+			Display.displayNotification(newNotifications);
 		});
 	});
 };
